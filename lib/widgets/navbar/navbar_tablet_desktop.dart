@@ -1,5 +1,6 @@
 import 'package:ecommerce_admin_tut/helpers/app_colors.dart';
 import 'package:ecommerce_admin_tut/widgets/custom_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
@@ -7,23 +8,33 @@ class NavigationTabletDesktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black,
+     decoration: BoxDecoration(
+       color: Colors.white,
+         boxShadow: [
+           BoxShadow(
+               color: Colors.grey[200], offset: Offset(3, 5), blurRadius: 17)
+         ]
+     ),
       height: 50,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
+              IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: (){},
+              ),
               Stack(
                 children: [
-                  IconButton(
-                    icon: Icon(Icons.notifications, color: Colors.white,),
-                    onPressed: (){},
-                  ),
+                 FlatButton.icon(
+                   icon: Icon(Icons.notifications),
+                   label: CustomText(text: 'Notifications',),
+                   onPressed: (){},
+                 ),
                   Positioned(
-                    top: 5,
-                    left: 7,
+                    top: 4,
+                    left: 9,
                     child: Container(
                       width: 12,
                       height: 12,
@@ -38,21 +49,30 @@ class NavigationTabletDesktop extends StatelessWidget {
               SizedBox(
                 width: 20,
               ),
-              IconButton(
-                icon: Icon(Icons.settings, color: Colors.white,),
+              FlatButton.icon(
+                icon: Icon(Icons.settings),
+                label: CustomText(text: 'Settings',),
                 onPressed: (){},
               ),
               SizedBox(
                 width: 20,
               ),
-              FlatButton.icon(
-                color: Colors.green,
-                icon: Icon(Icons.person, color: Colors.white,),
-                onPressed: (){},
-                label: CustomText(text: "Santos Enoque", color: white,),
-              ),
-              SizedBox(width: 20,)
-              
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircleAvatar(
+                    radius: 14,
+                    backgroundImage: AssetImage('images/profile.jpg'),
+                  ),
+                  SizedBox(width: 5,),
+                  CustomText(text: 'Santos Enoque',),
+                  IconButton(
+                    icon: Icon(Icons.keyboard_arrow_down),
+                    onPressed: null,
+                  )
+                ],
+              )
+
             ],
           )
         ],

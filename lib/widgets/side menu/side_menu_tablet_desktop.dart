@@ -1,41 +1,66 @@
+import 'package:ecommerce_admin_tut/locator.dart';
+import 'package:ecommerce_admin_tut/rounting/route_names.dart';
+import 'package:ecommerce_admin_tut/services/navigation_service.dart';
 import 'package:ecommerce_admin_tut/widgets/navbar/navbar_logo.dart';
+import 'package:ecommerce_admin_tut/widgets/side%20menu/side_menu_item.dart';
 import 'package:flutter/material.dart';
-
 
 class SideMenuTabletDesktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white,
+        color: Colors.indigo,
+          gradient: LinearGradient(
+            colors: [
+              Colors.indigo,
+              Colors.indigo.shade600
+            ],
+          ),
           boxShadow: [
             BoxShadow(
-                color: Colors.grey[200],
-                offset: Offset(3, 5),
-                blurRadius: 17
-            )
+                color: Colors.grey[200], offset: Offset(3, 5), blurRadius: 17)
           ]),
       width: 250,
       child: Container(
         child: Column(
           children: [
             NavBarLogo(),
-            ListTile(
-              tileColor: Colors.blue.withOpacity(.3),
-              leading: Icon(Icons.dashboard),
-              title: Text("Dashboard"),
+
+            SideMenuItemDesktop(
+              icon: Icons.dashboard,
+              text: 'Dashboard',
+              active: true,
+              onTap: () {
+                locator<NavigationService>().navigateTo(HomeRoute);
+              },
             ),
-            ListTile(
-              leading: Icon(Icons.people),
-              title: Text("Users"),
+
+            SideMenuItemDesktop(
+              icon: Icons.people,
+              text: 'Users',
+              active: false,
+              onTap: () {
+                locator<NavigationService>().navigateTo(UsersRoute);
+              },
             ),
-            ListTile(
-              leading: Icon(Icons.shopping_cart),
-              title: Text("Orders"),
+
+            SideMenuItemDesktop(
+              icon: Icons.shopping_cart,
+              text: 'Orders',
+              active: false,
+              onTap: () {
+                locator<NavigationService>().navigateTo(OrdersRoute);
+              },
             ),
-            ListTile(
-              leading: Icon(Icons.category),
-              title: Text("Products"),
+
+            SideMenuItemDesktop(
+              icon: Icons.category,
+              text: 'Products',
+              active: false,
+              onTap: () {
+                locator<NavigationService>().navigateTo(ProductsRoute);
+              },
             ),
 
           ],
