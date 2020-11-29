@@ -1,9 +1,10 @@
+import 'package:ecommerce_admin_tut/pages/users_page.dart';
 import 'package:ecommerce_admin_tut/widgets/bar_chart_widget.dart';
 import 'package:ecommerce_admin_tut/widgets/card_item.dart';
+import 'package:ecommerce_admin_tut/widgets/page_header.dart';
 import 'package:ecommerce_admin_tut/widgets/revenue_chart.dart';
 import 'package:ecommerce_admin_tut/widgets/sales_chart.dart';
 import 'package:ecommerce_admin_tut/widgets/custom_text.dart';
-import 'package:ecommerce_admin_tut/widgets/side%20menu/pie_chart.dart';
 import 'package:ecommerce_admin_tut/widgets/top_buyer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,15 +14,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return  ListView(
         children: [
-          Row(
-            children: [
-              SizedBox(width: 30,),
-              Padding(
-                padding: const EdgeInsets.all(14),
-                child: CustomText(text: 'DASHBOARD', size: 40, weight: FontWeight.bold, color: Colors.grey,),
-              ),
-            ],
-          ),
+      PageHeader(text: 'DASHBOARD',),
           Container(
             height: 120,
             child: Padding(
@@ -102,9 +95,6 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-
-
-
         ],
       );
   }

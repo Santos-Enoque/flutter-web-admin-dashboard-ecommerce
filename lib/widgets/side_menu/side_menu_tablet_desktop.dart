@@ -1,13 +1,16 @@
 import 'package:ecommerce_admin_tut/locator.dart';
+import 'package:ecommerce_admin_tut/provider/app_provider.dart';
 import 'package:ecommerce_admin_tut/rounting/route_names.dart';
 import 'package:ecommerce_admin_tut/services/navigation_service.dart';
 import 'package:ecommerce_admin_tut/widgets/navbar/navbar_logo.dart';
-import 'package:ecommerce_admin_tut/widgets/side%20menu/side_menu_item.dart';
+import 'package:ecommerce_admin_tut/widgets/side_menu/side_menu_item.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SideMenuTabletDesktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final AppProvider appProvider = Provider.of<AppProvider>(context);
     return Container(
       decoration: BoxDecoration(
         color: Colors.indigo,
@@ -30,8 +33,9 @@ class SideMenuTabletDesktop extends StatelessWidget {
             SideMenuItemDesktop(
               icon: Icons.dashboard,
               text: 'Dashboard',
-              active: true,
+              active: appProvider.currentPage == DisplayedPage.HOME,
               onTap: () {
+                appProvider.changeCurrentPage(DisplayedPage.HOME);
                 locator<NavigationService>().navigateTo(HomeRoute);
               },
             ),
@@ -39,8 +43,11 @@ class SideMenuTabletDesktop extends StatelessWidget {
             SideMenuItemDesktop(
               icon: Icons.people,
               text: 'Users',
-              active: false,
+              active: appProvider.currentPage == DisplayedPage.USERS,
+
               onTap: () {
+                appProvider.changeCurrentPage(DisplayedPage.USERS);
+
                 locator<NavigationService>().navigateTo(UsersRoute);
               },
             ),
@@ -48,8 +55,10 @@ class SideMenuTabletDesktop extends StatelessWidget {
             SideMenuItemDesktop(
               icon: Icons.shopping_cart,
               text: 'Orders',
-              active: false,
+              active: appProvider.currentPage == DisplayedPage.ORDERS,
+
               onTap: () {
+                appProvider.changeCurrentPage(DisplayedPage.ORDERS);
                 locator<NavigationService>().navigateTo(OrdersRoute);
               },
             ),
@@ -57,8 +66,9 @@ class SideMenuTabletDesktop extends StatelessWidget {
             SideMenuItemDesktop(
               icon: Icons.category,
               text: 'Products',
-              active: false,
+              active: appProvider.currentPage == DisplayedPage.PRODUCTS,
               onTap: () {
+                appProvider.changeCurrentPage(DisplayedPage.PRODUCTS);
                 locator<NavigationService>().navigateTo(ProductsRoute);
               },
             ),

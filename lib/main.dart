@@ -1,11 +1,18 @@
+import 'package:ecommerce_admin_tut/pages/login.dart';
+import 'package:ecommerce_admin_tut/provider/app_provider.dart';
 import 'package:ecommerce_admin_tut/widgets/layout/layout.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'locator.dart';
 
 void main() {
   setupLocator();
-  runApp(MyApp());
+  runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: AppProvider.init()),
+      ],
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: LayoutTemplate(),
+      home: LoginPage(),
     );
   }
 }

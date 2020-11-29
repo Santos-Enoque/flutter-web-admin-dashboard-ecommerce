@@ -1,5 +1,5 @@
-import 'package:ecommerce_admin_tut/widgets/side%20menu/side_menu_mobile.dart';
-import 'package:ecommerce_admin_tut/widgets/side%20menu/side_menu_tablet_desktop.dart';
+import 'package:ecommerce_admin_tut/widgets/side_menu/side_menu_mobile.dart';
+import 'package:ecommerce_admin_tut/widgets/side_menu/side_menu_tablet_desktop.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 

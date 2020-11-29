@@ -13,7 +13,7 @@ class SideMenuItemDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
     return   ListTile(
       onTap: onTap,
-      // tileColor: active ? Colors.blue.withOpacity(.3) : null,
+      tileColor: active ? Colors.green.withOpacity(.3) : null,
       leading: Icon(icon, color: Colors.white),
       title: CustomText(text: text, color: Colors.white, size: active ? 23 : 18, weight: active ? FontWeight.bold : FontWeight.w300,),
     );

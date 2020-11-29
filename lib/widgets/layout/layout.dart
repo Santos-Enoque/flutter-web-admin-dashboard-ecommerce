@@ -2,7 +2,7 @@
 import 'package:ecommerce_admin_tut/rounting/route_names.dart';
 import 'package:ecommerce_admin_tut/rounting/router.dart';
 import 'package:ecommerce_admin_tut/services/navigation_service.dart';
-import 'package:ecommerce_admin_tut/widgets/side%20menu/side_menu.dart';
+import 'package:ecommerce_admin_tut/widgets/side_menu/side_menu.dart';
 import 'package:flutter/material.dart';
 
 import '../../locator.dart';
