@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'navbar_logo.dart';
 
 class NavigationBarMobile extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldState;

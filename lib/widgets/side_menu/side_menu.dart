@@ -7,8 +7,13 @@ class SideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
+             breakpoints: ScreenBreakpoints(
+    tablet: 600,
+    desktop: 1460,
+    watch: 300
+  ),
       mobile: SideMenuMobile(),
-      tablet: SideMenuTabletDesktop(),
+      desktop: SideMenuTabletDesktop(),
     );
   }
 }
