@@ -29,6 +29,8 @@ dependencies:
   charts_flutter: ^0.9.0
   provider: ^4.3.2+2
   responsive_table: ^0.1.1+8
+  firebase_core: ^0.5.2+1
+  firebase_auth: ^0.18.3+1
 
 
   # The following adds the Cupertino Icons font to your application.

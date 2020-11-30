@@ -1,8 +1,12 @@
 
+import 'package:ecommerce_admin_tut/pages/login/login.dart';
+import 'package:ecommerce_admin_tut/pages/registration/registration.dart';
+import 'package:ecommerce_admin_tut/widgets/layout/layout.dart';
+
 import '../pages/home/home_page.dart';
 import '../pages/orders/orders_page.dart';
 import '../pages/products/products_page.dart';
-import '../pages/users_page.dart';
+import '../pages/users/users_page.dart';
 import 'package:ecommerce_admin_tut/rounting/route_names.dart';
 import 'package:flutter/material.dart';
 
@@ -17,8 +21,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(ProductsPage());
     case OrdersRoute:
       return _getPageRoute(OrdersPage());
+    case LoginRoute:
+      return _getPageRoute(LoginPage());
+    case RegistrationRoute:
+      return _getPageRoute(RegistrationPage());
+          case LayoutRoute:
+      return _getPageRoute(LayoutTemplate());
     default:
-      return _getPageRoute(HomePage());
+      return _getPageRoute(LoginPage());
   }
 }
 

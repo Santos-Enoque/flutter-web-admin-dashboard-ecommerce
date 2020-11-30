@@ -1,4 +1,4 @@
-import 'package:ecommerce_admin_tut/pages/users_page.dart';
+import 'package:ecommerce_admin_tut/pages/users/users_page.dart';
 import 'package:ecommerce_admin_tut/widgets/bar_chart_widget.dart';
 import 'package:ecommerce_admin_tut/widgets/card_item.dart';
 import 'package:ecommerce_admin_tut/widgets/page_header.dart';
