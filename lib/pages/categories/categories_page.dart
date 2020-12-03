@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:responsive_table/ResponsiveDatatable.dart';
 import 'package:responsive_table/responsive_table.dart';
 
-class UsersPage extends StatefulWidget {
+class CategoriesPage extends StatefulWidget {
   @override
-  _UsersPageState createState() => _UsersPageState();
+  _CategoriesPageState createState() => _CategoriesPageState();
 }
 
-class _UsersPageState extends State<UsersPage> {
+class _CategoriesPageState extends State<CategoriesPage> {
   List<DatatableHeader> _headers = [
     DatatableHeader(
         text: "ID",
@@ -149,7 +149,7 @@ class _UsersPageState extends State<UsersPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
-              PageHeader(text: 'USERS',),
+              PageHeader(text: 'BRANDS',),
 
               Container(
                 margin: EdgeInsets.all(10),

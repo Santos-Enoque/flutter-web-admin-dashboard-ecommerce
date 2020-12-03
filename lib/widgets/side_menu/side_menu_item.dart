@@ -1,4 +1,3 @@
-import 'package:ecommerce_admin_tut/helpers/app_colors.dart';
 import 'package:ecommerce_admin_tut/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 

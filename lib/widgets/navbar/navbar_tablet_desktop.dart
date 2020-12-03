@@ -68,7 +68,10 @@ class NavigationTabletDesktop extends StatelessWidget {
                   CustomText(text: 'Santos Enoque',),
                   IconButton(
                     icon: Icon(Icons.keyboard_arrow_down),
-                    onPressed: null,
+                    onPressed: (){
+                      print("CLICKED");
+                      myPopMenu();
+                    },
                   )
                 ],
               )
@@ -78,5 +81,47 @@ class NavigationTabletDesktop extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget myPopMenu() {
+    return PopupMenuButton(
+        onSelected: (value) {
+
+        },
+        itemBuilder: (context) => [
+          PopupMenuItem(
+              value: 1,
+              child: Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
+                    child: Icon(Icons.print),
+                  ),
+                  Text('Print')
+                ],
+              )),
+          PopupMenuItem(
+              value: 2,
+              child: Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
+                    child: Icon(Icons.share),
+                  ),
+                  Text('Share')
+                ],
+              )),
+          PopupMenuItem(
+              value: 3,
+              child: Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
+                    child: Icon(Icons.add_circle),
+                  ),
+                  Text('Add')
+                ],
+              )),
+        ]);
   }
 }
