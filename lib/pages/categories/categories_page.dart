@@ -5,19 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:responsive_table/ResponsiveDatatable.dart';
 import 'package:responsive_table/responsive_table.dart';
 
-class UsersPage extends StatefulWidget {
+class CategoriesPage extends StatefulWidget {
   @override
-  _UsersPageState createState() => _UsersPageState();
+  _CategoriesPageState createState() => _CategoriesPageState();
 }
 
-class _UsersPageState extends State<UsersPage> {
+class _CategoriesPageState extends State<CategoriesPage> {
   List<DatatableHeader> _headers = [
     DatatableHeader(
         text: "ID",
         value: "id",
-        show: true,
+        show: false,
         sortable: true,
-        textAlign: TextAlign.left),
+        textAlign: TextAlign.right),
     DatatableHeader(
         text: "Name",
         value: "name",
@@ -26,11 +26,63 @@ class _UsersPageState extends State<UsersPage> {
         sortable: true,
         textAlign: TextAlign.left),
     DatatableHeader(
-        text: "Email",
-        value: "email",
+        text: "SKU",
+        value: "sku",
+        show: true,
+        sortable: true,
+        textAlign: TextAlign.center),
+    DatatableHeader(
+        text: "Category",
+        value: "category",
         show: true,
         sortable: true,
         textAlign: TextAlign.left),
+    DatatableHeader(
+        text: "Price",
+        value: "price",
+        show: true,
+        sortable: true,
+        textAlign: TextAlign.left),
+    DatatableHeader(
+        text: "Margin",
+        value: "margin",
+        show: true,
+        sortable: true,
+        textAlign: TextAlign.left),
+    DatatableHeader(
+        text: "In Stock",
+        value: "in_stock",
+        show: true,
+        sortable: true,
+        textAlign: TextAlign.left),
+    DatatableHeader(
+        text: "Alert",
+        value: "alert",
+        show: true,
+        sortable: true,
+        textAlign: TextAlign.left),
+    DatatableHeader(
+        text: "Received",
+        value: "received",
+        show: true,
+        sortable: false,
+        sourceBuilder: (value, row) {
+          List list = List.from(value);
+          return Container(
+            child: Column(
+              children: [
+                Container(
+                  width: 85,
+                  child: LinearProgressIndicator(
+                    value: list.first / list.last,
+                  ),
+                ),
+                Text("${list.first} of ${list.last}")
+              ],
+            ),
+          );
+        },
+        textAlign: TextAlign.center),
   ];
 
   List<int> _perPages = [5, 10, 15, 100];
@@ -55,8 +107,15 @@ class _UsersPageState extends State<UsersPage> {
     for (var data in source) {
       temps.add({
         "id": i,
-        "email": "user$i@user.com",
-        "name": "User name $i",
+        "sku": "$i\000$i",
+        "name": "Product Product Product Product $i",
+        "category": "Category-$i",
+        "price": "${i}0.00",
+        "cost": "20.00",
+        "margin": "${i}0.20",
+        "in_stock": "${i}0",
+        "alert": "5",
+        "received": [i + 20, 150]
       });
       i++;
     }
@@ -66,7 +125,7 @@ class _UsersPageState extends State<UsersPage> {
 
   _initData() async {
     setState(() => _isLoading = true);
-    Future.delayed(Duration(seconds: 1)).then((value) {
+    Future.delayed(Duration(seconds: 2)).then((value) {
       _source.addAll(_generateData(n: 1000));
       setState(() => _isLoading = false);
     });
@@ -90,7 +149,7 @@ class _UsersPageState extends State<UsersPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
-              PageHeader(text: 'USERS',),
+              PageHeader(text: 'BRANDS',),
 
               Container(
                 margin: EdgeInsets.all(10),

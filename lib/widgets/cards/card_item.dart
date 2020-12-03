@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-import 'custom_text.dart';
+import '../custom_text.dart';
 
 class CardItem extends StatelessWidget {
   final String subtitle;

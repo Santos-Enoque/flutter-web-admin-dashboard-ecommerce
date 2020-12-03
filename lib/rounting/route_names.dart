@@ -5,3 +5,6 @@ const String UsersRoute = "users";
 const String OrdersRoute = "orders";
 const String LoginRoute = "login";
 const String RegistrationRoute = "registration";
+const String CategoriesRoute = "categories";
+const String BrandsRoute = "brands";
+const String PageControllerRoute = "page";

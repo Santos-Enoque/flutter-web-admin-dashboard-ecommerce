@@ -1,4 +1,7 @@
 
+import 'package:ecommerce_admin_tut/main.dart';
+import 'package:ecommerce_admin_tut/pages/brands/brands_page.dart';
+import 'package:ecommerce_admin_tut/pages/categories/categories_page.dart';
 import 'package:ecommerce_admin_tut/pages/login/login.dart';
 import 'package:ecommerce_admin_tut/pages/registration/registration.dart';
 import 'package:ecommerce_admin_tut/widgets/layout/layout.dart';
@@ -27,6 +30,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(RegistrationPage());
           case LayoutRoute:
       return _getPageRoute(LayoutTemplate());
+                case CategoriesRoute:
+      return _getPageRoute(CategoriesPage());
+                case BrandsRoute:
+      return _getPageRoute(BrandsPage());
+                case PageControllerRoute:
+      return _getPageRoute(AppPagesController());
     default:
       return _getPageRoute(LoginPage());
   }

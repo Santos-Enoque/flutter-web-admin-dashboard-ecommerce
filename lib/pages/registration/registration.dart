@@ -1,13 +1,18 @@
+import 'package:ecommerce_admin_tut/provider/auth.dart';
 import 'package:ecommerce_admin_tut/rounting/route_names.dart';
 import 'package:ecommerce_admin_tut/services/navigation_service.dart';
 import 'package:ecommerce_admin_tut/widgets/custom_text.dart';
+import 'package:ecommerce_admin_tut/widgets/loading.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../locator.dart';
 
 class RegistrationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+        final authProvider = Provider.of<AuthProvider>(context);
+
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -18,7 +23,7 @@ class RegistrationPage extends StatelessWidget {
           )
 
       ),
-      child: Scaffold(
+      child: authProvider.status == Status.Authenticating? Loading() :Scaffold(
         backgroundColor: Colors.transparent,
         body: Center(
           child: Container(
@@ -48,6 +53,7 @@ class RegistrationPage extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(left:8.0),
                         child: TextField(
+                          controller: authProvider.name,
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: 'Username',
@@ -67,6 +73,7 @@ class RegistrationPage extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(left:8.0),
                         child: TextField(
+                          controller: authProvider.email,
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: 'email',
@@ -87,6 +94,7 @@ class RegistrationPage extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(left:8.0),
                         child: TextField(
+                          controller: authProvider.password,
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: 'Password',
@@ -106,7 +114,18 @@ class RegistrationPage extends StatelessWidget {
                           color: Colors.indigo
                       ),
                       child: FlatButton(
-                        onPressed: (){},
+                        onPressed: ()async{
+                                  if(!await authProvider.signUp()){
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Registration failed!"))
+
+                    );
+                    return;
+                  }
+                  authProvider.clearController();
+
+                          locator<NavigationService>().globalNavigateTo(LayoutRoute, context);
+                        },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical:4),
 

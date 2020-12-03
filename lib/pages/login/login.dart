@@ -1,12 +1,19 @@
 import 'package:ecommerce_admin_tut/locator.dart';
+import 'package:ecommerce_admin_tut/provider/auth.dart';
 import 'package:ecommerce_admin_tut/rounting/route_names.dart';
 import 'package:ecommerce_admin_tut/services/navigation_service.dart';
 import 'package:ecommerce_admin_tut/widgets/custom_text.dart';
+import 'package:ecommerce_admin_tut/widgets/loading.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
+    final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
+        final authProvider = Provider.of<AuthProvider>(context);
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -17,7 +24,8 @@ class LoginPage extends StatelessWidget {
         )
             
       ),
-      child: Scaffold(
+      child: authProvider.status == Status.Authenticating? Loading() : Scaffold(
+        key: _key,
         backgroundColor: Colors.transparent,
         body: Center(
           child: Container(
@@ -47,10 +55,11 @@ class LoginPage extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(left:8.0),
                         child: TextField(
+                          controller: authProvider.email,
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'Username',
-                            icon: Icon(Icons.person_outline)
+                            hintText: 'Email',
+                            icon: Icon(Icons.email_outlined)
                           ),
                         ),
                       ),
@@ -67,6 +76,7 @@ class LoginPage extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(left:8.0),
                         child: TextField(
+                          controller: authProvider.password,
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: 'Password',
@@ -96,7 +106,16 @@ class LoginPage extends StatelessWidget {
                           color: Colors.indigo
                       ),
                       child: FlatButton(
-                        onPressed: (){
+                        onPressed: ()async{
+                           if(!await authProvider.signIn()){
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Login failed!"))
+
+                    );
+                    return;
+                  }
+                  authProvider.clearController();
+
                           locator<NavigationService>().globalNavigateTo(LayoutRoute, context);
                         },
                         child: Padding(
