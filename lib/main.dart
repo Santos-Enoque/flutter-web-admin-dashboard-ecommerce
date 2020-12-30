@@ -1,6 +1,7 @@
 import 'package:ecommerce_admin_tut/pages/login/login.dart';
 import 'package:ecommerce_admin_tut/provider/app_provider.dart';
 import 'package:ecommerce_admin_tut/provider/auth.dart';
+import 'package:ecommerce_admin_tut/provider/tables.dart';
 import 'package:ecommerce_admin_tut/rounting/route_names.dart';
 import 'package:ecommerce_admin_tut/rounting/router.dart';
 import 'package:ecommerce_admin_tut/widgets/layout/layout.dart';
@@ -13,13 +14,11 @@ import 'locator.dart';
 
 void main() {
   setupLocator();
-  runApp(MultiProvider(
-      providers: [
-        ChangeNotifierProvider.value(value: AppProvider.init()),
-        ChangeNotifierProvider.value(value: AuthProvider.initialize()),
-
-      ],
-      child: MyApp()));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider.value(value: AppProvider.init()),
+    ChangeNotifierProvider.value(value: AuthProvider.initialize()),
+    ChangeNotifierProvider.value(value: TablesProvider.init()),
+  ], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -84,5 +83,3 @@ class AppPagesController extends StatelessWidget {
     );
   }
 }
-
-

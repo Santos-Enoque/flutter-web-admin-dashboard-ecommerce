@@ -1,3 +1,4 @@
+import 'package:ecommerce_admin_tut/helpers/enumerators.dart';
 import 'package:ecommerce_admin_tut/locator.dart';
 import 'package:ecommerce_admin_tut/pages/categories/categories_page.dart';
 import 'package:ecommerce_admin_tut/provider/app_provider.dart';
@@ -14,12 +15,9 @@ class SideMenuTabletDesktop extends StatelessWidget {
     final AppProvider appProvider = Provider.of<AppProvider>(context);
     return Container(
       decoration: BoxDecoration(
-        color: Colors.indigo,
+          color: Colors.indigo,
           gradient: LinearGradient(
-            colors: [
-              Colors.indigo,
-              Colors.indigo.shade600
-            ],
+            colors: [Colors.indigo, Colors.indigo.shade600],
           ),
           boxShadow: [
             BoxShadow(
@@ -30,7 +28,6 @@ class SideMenuTabletDesktop extends StatelessWidget {
         child: Column(
           children: [
             NavBarLogo(),
-
             SideMenuItemDesktop(
               icon: Icons.dashboard,
               text: 'Dashboard',
@@ -40,30 +37,25 @@ class SideMenuTabletDesktop extends StatelessWidget {
                 locator<NavigationService>().navigateTo(HomeRoute);
               },
             ),
-
             SideMenuItemDesktop(
               icon: Icons.people,
               text: 'Users',
               active: appProvider.currentPage == DisplayedPage.USERS,
-
               onTap: () {
                 appProvider.changeCurrentPage(DisplayedPage.USERS);
 
                 locator<NavigationService>().navigateTo(UsersRoute);
               },
             ),
-
             SideMenuItemDesktop(
               icon: Icons.shopping_cart,
               text: 'Orders',
               active: appProvider.currentPage == DisplayedPage.ORDERS,
-
               onTap: () {
                 appProvider.changeCurrentPage(DisplayedPage.ORDERS);
                 locator<NavigationService>().navigateTo(OrdersRoute);
               },
             ),
-
             SideMenuItemDesktop(
               icon: Icons.shopping_basket_outlined,
               text: 'Products',
@@ -73,7 +65,6 @@ class SideMenuTabletDesktop extends StatelessWidget {
                 locator<NavigationService>().navigateTo(ProductsRoute);
               },
             ),
-
             SideMenuItemDesktop(
               icon: Icons.category,
               text: 'Categories',
@@ -83,7 +74,6 @@ class SideMenuTabletDesktop extends StatelessWidget {
                 locator<NavigationService>().navigateTo(CategoriesRoute);
               },
             ),
-
             SideMenuItemDesktop(
               icon: Icons.category,
               text: 'Brands',
@@ -93,7 +83,6 @@ class SideMenuTabletDesktop extends StatelessWidget {
                 locator<NavigationService>().navigateTo(BrandsRoute);
               },
             ),
-
           ],
         ),
       ),

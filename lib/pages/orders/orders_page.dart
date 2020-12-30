@@ -1,7 +1,9 @@
 import 'dart:math';
 
+import 'package:ecommerce_admin_tut/provider/tables.dart';
 import 'package:ecommerce_admin_tut/widgets/page_header.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_table/ResponsiveDatatable.dart';
 import 'package:responsive_table/responsive_table.dart';
 
@@ -122,7 +124,6 @@ class _OrdersPageState extends State<OrdersPage> {
     return temps;
   }
 
-
   _initData() async {
     setState(() => _isLoading = true);
     Future.delayed(Duration(seconds: 2)).then((value) {
@@ -144,150 +145,110 @@ class _OrdersPageState extends State<OrdersPage> {
 
   @override
   Widget build(BuildContext context) {
+    final TablesProvider tablesProvider = Provider.of<TablesProvider>(context);
     return SingleChildScrollView(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
-              PageHeader(text: 'ORDERS',),
-
-              Container(
-                margin: EdgeInsets.all(10),
-                padding: EdgeInsets.all(0),
-                constraints: BoxConstraints(
-                  maxHeight: 700,
-                ),
-                child: Card(
-                  elevation: 1,
-                  shadowColor: Colors.black,
-                  clipBehavior: Clip.none,
-                  child: ResponsiveDatatable(
-                    title: !_isSearch
-                        ? RaisedButton.icon(
+          PageHeader(
+            text: 'Orders',
+          ),
+          Container(
+            margin: EdgeInsets.all(10),
+            padding: EdgeInsets.all(0),
+            constraints: BoxConstraints(
+              maxHeight: 700,
+            ),
+            child: Card(
+              elevation: 1,
+              shadowColor: Colors.black,
+              clipBehavior: Clip.none,
+              child: ResponsiveDatatable(
+                title: !tablesProvider.isSearch
+                    ? RaisedButton.icon(
                         onPressed: () {},
                         icon: Icon(Icons.add),
                         label: Text("ADD CATEGORY"))
-                        : null,
-                    actions: [
-                      if (_isSearch)
-                        Expanded(
-                            child: TextField(
-                              decoration: InputDecoration(
-                                  prefixIcon: IconButton(
-                                      icon: Icon(Icons.cancel),
-                                      onPressed: () {
-                                        setState(() {
-                                          _isSearch = false;
-                                        });
-                                      }),
-                                  suffixIcon: IconButton(
-                                      icon: Icon(Icons.search), onPressed: () {})),
-                            )),
-                      if (!_isSearch)
-                        IconButton(
-                            icon: Icon(Icons.search),
-                            onPressed: () {
-                              setState(() {
-                                _isSearch = true;
-                              });
-                            })
-                    ],
-                    headers: _headers,
-                    source: _source,
-                    selecteds: _selecteds,
-                    showSelect: _showSelect,
-                    autoHeight: false,
-                    onTabRow: (data) {
-                      print(data);
-                    },
-                    onSort: (value) {
-                      setState(() {
-                        _sortColumn = value;
-                        _sortAscending = !_sortAscending;
-                        if (_sortAscending) {
-                          _source.sort((a, b) =>
-                              b["$_sortColumn"].compareTo(a["$_sortColumn"]));
-                        } else {
-                          _source.sort((a, b) =>
-                              a["$_sortColumn"].compareTo(b["$_sortColumn"]));
-                        }
-                      });
-                    },
-                    sortAscending: _sortAscending,
-                    sortColumn: _sortColumn,
-                    isLoading: _isLoading,
-                    onSelect: (value, item) {
-                      print("$value  $item ");
-                      if (value) {
-                        setState(() => _selecteds.add(item));
-                      } else {
-                        setState(
-                                () => _selecteds.removeAt(_selecteds.indexOf(item)));
-                      }
-                    },
-                    onSelectAll: (value) {
-                      if (value) {
-                        setState(() => _selecteds =
-                            _source.map((entry) => entry).toList().cast());
-                      } else {
-                        setState(() => _selecteds.clear());
-                      }
-                    },
-                    footers: [
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
-                        child: Text("Rows per page:"),
-                      ),
-                      if (_perPages != null)
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 15),
-                          child: DropdownButton(
-                              value: _currentPerPage,
-                              items: _perPages
-                                  .map((e) => DropdownMenuItem(
-                                child: Text("$e"),
-                                value: e,
-                              ))
-                                  .toList(),
-                              onChanged: (value) {
+                    : null,
+                actions: [
+                  if (tablesProvider.isSearch)
+                    Expanded(
+                        child: TextField(
+                      decoration: InputDecoration(
+                          prefixIcon: IconButton(
+                              icon: Icon(Icons.cancel),
+                              onPressed: () {
                                 setState(() {
-                                  _currentPerPage = value;
+                                  tablesProvider.isSearch = false;
                                 });
                               }),
-                        ),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
-                        child:
-                        Text("$_currentPage - $_currentPerPage of $_total"),
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.arrow_back_ios,
-                          size: 16,
-                        ),
+                          suffixIcon: IconButton(
+                              icon: Icon(Icons.search), onPressed: () {})),
+                    )),
+                  if (!tablesProvider.isSearch)
+                    IconButton(
+                        icon: Icon(Icons.search),
                         onPressed: () {
                           setState(() {
-                            _currentPage =
-                            _currentPage >= 2 ? _currentPage - 1 : 1;
+                            tablesProvider.isSearch = true;
                           });
-                        },
-                        padding: EdgeInsets.symmetric(horizontal: 15),
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.arrow_forward_ios, size: 16),
-                        onPressed: () {
-                          setState(() {
-                            _currentPage++;
-                          });
-                        },
-                        padding: EdgeInsets.symmetric(horizontal: 15),
-                      )
-                    ],
+                        })
+                ],
+                headers: tablesProvider.ordersTableHeader,
+                source: tablesProvider.ordersTableSource,
+                selecteds: tablesProvider.selecteds,
+                showSelect: tablesProvider.showSelect,
+                autoHeight: false,
+                onTabRow: (data) {
+                  print(data);
+                },
+                onSort: tablesProvider.onSort,
+                sortAscending: tablesProvider.sortAscending,
+                sortColumn: tablesProvider.sortColumn,
+                isLoading: tablesProvider.isLoading,
+                onSelect: tablesProvider.onSelected,
+                onSelectAll: tablesProvider.onSelectAll,
+                footers: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: Text("Rows per page:"),
                   ),
-                ),
+                  if (tablesProvider.perPages != null)
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: DropdownButton(
+                          value: tablesProvider.currentPerPage,
+                          items: tablesProvider.perPages
+                              .map((e) => DropdownMenuItem(
+                                    child: Text("$e"),
+                                    value: e,
+                                  ))
+                              .toList(),
+                          onChanged: (value) {}),
+                    ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: Text(
+                        "${tablesProvider.currentPage} - ${tablesProvider.currentPage} of ${tablesProvider.total}"),
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      size: 16,
+                    ),
+                    onPressed: tablesProvider.previous,
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.arrow_forward_ios, size: 16),
+                    onPressed: tablesProvider.next,
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                  )
+                ],
               ),
-            ]
-        )
-    );
+            ),
+          ),
+        ]));
   }
 }

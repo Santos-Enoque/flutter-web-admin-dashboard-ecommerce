@@ -8,7 +8,6 @@ import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 enum Status { Uninitialized, Authenticated, Authenticating, Unauthenticated }
 
 class AuthProvider with ChangeNotifier {
@@ -70,11 +69,11 @@ class AuthProvider with ChangeNotifier {
           .then((result) async {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString("id", result.user.uid);
-        _userServices.createUser(
-            id: result.user.uid,
-            name: name.text.trim(),
-            email: email.text.trim(),
-           );
+        _userServices.createAdmin(
+          id: result.user.uid,
+          name: name.text.trim(),
+          email: email.text.trim(),
+        );
       });
       return true;
     } catch (e) {
@@ -99,7 +98,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> reloadUserModel() async {
-    _userModel = await _userServices.getUserById(user.uid);
+    _userModel = await _userServices.getAdminById(user.uid);
     notifyListeners();
   }
 
@@ -107,7 +106,6 @@ class AuthProvider with ChangeNotifier {
     _userServices.updateUserData(data);
   }
 
- 
   _onStateChanged(User firebaseUser) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (firebaseUser == null) {
@@ -116,7 +114,7 @@ class AuthProvider with ChangeNotifier {
       _user = firebaseUser;
       await prefs.setString("id", firebaseUser.uid);
 
-      _userModel = await _userServices.getUserById(user.uid).then((value) {
+      _userModel = await _userServices.getAdminById(user.uid).then((value) {
         _status = Status.Authenticated;
         return value;
       });
